@@ -10,16 +10,22 @@ public class Main {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
+
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        Member member = new Member();
-        member.setId(1L);
-        member.setName("추서연");
+        try {
+            Member member = new Member();
+            member.setId(1L);
+            member.setName("추서연");
 
-        em.persist(member);
-        tx.commit();
-        em.close();
+            em.persist(member);
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
         emf.close();
     }
 }
