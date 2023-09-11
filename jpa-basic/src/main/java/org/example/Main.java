@@ -15,11 +15,16 @@ public class Main {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setId(1L);
-            member.setName("추서연");
+//            // 저장
+//            Member member = new Member();
+//            member.setId(1L);
+//            member.setName("추서연");
 
-            em.persist(member);
+            // 조회
+            Member findMember = em.find(Member.class, 1L);
+            System.out.println("findMember.getId() = " + findMember.getId());
+            System.out.println("findMember.getName() = " + findMember.getName());
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
